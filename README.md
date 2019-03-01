@@ -8,7 +8,7 @@ It requires a [Terraform Docker Provider](https://www.terraform.io/docs/provider
 
 ### Motivation
 
-If one uses Docker on a private network on the Google Cloud (GCP/GKE), the nodes will not be able to pull from the Docker Hub Registry.  However, the nodes can pull from the Google Container Registry (GCR).  Thus, mirroring the registries will facilitate the nodes' access to images.  This module allows this to be managed with Terraform to manage this.
+If one uses Docker on a private network on the Google Cloud (GCP/GKE), the nodes will not be able to pull from the Docker Hub Registry.  However, the nodes *can* pull from the Google Container Registry (GCR).  Thus, mirroring the registries will facilitate the nodes' access to images.  This module enables this to be managed with Terraform.
 
 ### How It Works
 
@@ -27,7 +27,7 @@ module "docker-mirror-vault" {
 }
 ```
 
-Example with `source_prefix`, copying 'openresty/openresty:xenial' to `us.gcr.io/my-gcp-project/openresty:xenial`:
+Example with `source_prefix`, copying `openresty/openresty:xenial` to `us.gcr.io/my-gcp-project/openresty:xenial`:
 ```
 module "docker-mirror-resty" {
   source        = "github.com/neomantra/terraform-docker-mirror"
