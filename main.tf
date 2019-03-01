@@ -76,6 +76,7 @@ data "docker_registry_image" "source" {
 resource "docker_image" "image" {
   name          = "${data.docker_registry_image.source.name}"
   pull_triggers = ["${data.docker_registry_image.source.sha256_digest}"]
+  keep_locally  = true
 
   provisioner "local-exec" {
     command = <<END_OF_COMMAND

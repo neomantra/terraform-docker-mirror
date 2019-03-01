@@ -4,7 +4,7 @@
 This Terraform module ensures that a source Docker image is mirrored to the specified Docker registry,
 copying image `source_prefix/image_name:image-tag` to `dest_prefix/image_name:image_tag`.
 
-It requires a [Terraform Docker Provider](https://www.terraform.io/docs/providers/docker/index.html) to be configured, as well as a Docker daemon running on the Terraform-local machine.
+It requires a [Terraform Docker Provider](https://www.terraform.io/docs/providers/docker/index.html) to be configured, as well as a Docker daemon running on the Terraform-local machine.  Note you may need to setup  authentication or run `docker login` to access private registries.
 
 ### Motivation
 
@@ -12,32 +12,32 @@ If one uses Docker on a private network on the Google Cloud (GCP/GKE), the nodes
 
 ### How It Works
 
-This module works by first creating a `docker_image` resource, which pulls the "source" image to the Docker provider.  That pull will trigger a `local-exec` provisioner which performs a tag and `docker push` to the destination repository.
+This module works by first creating a `docker_image` resource, which pulls the "source" image to the Docker provider.  That pull will trigger a `local-exec` provisioner which performs a tag and `docker push` to the destination registry.
 
-The Terraform Docker provider is configured with variable `docker_host`.
 ### Example
 
-The following will mirror the [Hashicorp Vault image](https://hub.docker.com/_/vault) (`vault:1.0.3`) to the GCR registry for `my-gcp-project`:
+The following will mirror the [HashiCorp Vault image](https://hub.docker.com/_/vault) (`vault:1.0.3`) to the GCR registry for `my-gcp-project`:
 
 ```
 module "docker-mirror-vault" {
-  source      = "github.com/neomantra/terraform-docker-mirror"
-  image_name  = "vault"
-  image_tag   = "1.0.3"
-  dest_prefix = "us.gcr.io/my-gcp-project"
+  source        = "github.com/neomantra/terraform-docker-mirror"
+  image_name    = "vault"
+  image_tag     = "1.0.3"
+  dest_prefix   = "us.gcr.io/my-gcp-project"
 }
 ```
 
-Full example:
+Example with `source_prefix`, copying 'openresty/openresty:xenial' to `us.gcr.io/my-gcp-project/openresty:xenial`:
 ```
-variable "docker_host" {
-variable "image_name" {
-variable "image_tag" {
-variable "source_prefix" {
-variable "dest_prefix" {
+module "docker-mirror-resty" {
+  source        = "github.com/neomantra/terraform-docker-mirror"
+  image_name    = "vault"
+  image_tag     = "1.0.3"
+  source_prefix = "openresty"
+  dest_prefix   = "us.gcr.io/my-gcp-project"
+}
 
 ```
-
 
 ### License
 
