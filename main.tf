@@ -15,24 +15,24 @@
 
 variable "image_name" {
   description = "Docker image name"
-  type        = "string"
+  type        = string
 }
 
 variable "image_tag" {
   description = "Docker image tag"
-  type        = "string"
+  type        = string
   default     = "latest"
 }
 
 variable "source_prefix" {
   description = "Source Docker Registry Path Prefix"
-  type        = "string"
+  type        = string
   default     = ""
 }
 
 variable "dest_prefix" {
   description = "Destination Docker Registry Path Prefix"
-  type        = "string"
+  type        = string
 }
 
 
@@ -56,12 +56,12 @@ locals {
 
 output "dest_repo" {
   description = "Destination Repository without tag"
-  value       = "${local.dest_repo}"
+  value       = local.dest_repo
 }
 
 output "tag" {
   description = "Image tag"
-  value       = "${var.image_tag}"
+  value       = var.image_tag
 }
 
 
@@ -70,12 +70,12 @@ output "tag" {
 ###############################################################################
 
 data "docker_registry_image" "source" {
-  name = "${local.source_full}"
+  name = local.source_full
 }
 
 resource "docker_image" "image" {
-  name          = "${data.docker_registry_image.source.name}"
-  pull_triggers = ["${data.docker_registry_image.source.sha256_digest}"]
+  name          = data.docker_registry_image.source.name
+  pull_triggers = [data.docker_registry_image.source.sha256_digest]
   keep_locally  = true
 
   provisioner "local-exec" {
