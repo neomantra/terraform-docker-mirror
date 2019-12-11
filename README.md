@@ -14,6 +14,23 @@ If one uses Docker on a private network on the Google Cloud (GCP/GKE), the nodes
 
 This module works by first creating a `docker_image` resource, which pulls the "source" image to the Docker provider.  That pull will trigger a `local-exec` provisioner which performs a tag and `docker push` to the destination registry.
 
+### Terraform Version Compatibility
+
+Version `v0.1.0` of `terraform-docker-mirror` supports Terraform 0.11 and earlier.
+
+Version `v0.2.0` and later support Terraform 0.12.
+
+If unspecified, Terraform uses the latesst `master`.
+
+You can specify the version with the `source` attribute, like so:
+
+```
+module "docker-mirror-vault" {
+  source = "github.com/neomantra/terraform-docker-mirror?ref=v0.1.0"
+  ...
+}
+```
+
 ### Example
 
 The following will mirror the [HashiCorp Vault image](https://hub.docker.com/_/vault) (`vault:1.0.3`) to the GCR registry for `my-gcp-project`:
