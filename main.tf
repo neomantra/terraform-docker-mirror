@@ -37,7 +37,14 @@ variable "dest_prefix" {
 
 variable "keep_locally" {
   description = "If false, it will delete the image from the docker local storage on destroy operation."
+  type        = bool
   default     = true
+}
+
+variable "no_rmi" {
+  description = "If true, it will not issue a `docker rmi` of the local source tag"
+  type        = bool
+  default     = false
 }
 
 
@@ -106,10 +113,27 @@ data "docker_registry_image" "source" {
   name = local.source_full
 }
 
+resource "null_resource" "remove-local-tag" {
+  triggers = {
+    source_sha = data.docker_registry_image.source.sha256_digest
+  }
+  provisioner "local-exec" {
+    on_failure = continue
+    command = <<END_OF_COMMAND
+if [ -n "${var.no_rmi ? "" : "rmi"}" ] ; then docker rmi --no-prune ${data.docker_registry_image.source.name} ; fi
+END_OF_COMMAND
+  }
+}
+
+
 resource "docker_image" "image" {
   name          = data.docker_registry_image.source.name
   keep_locally  = var.keep_locally
   pull_triggers = [data.docker_registry_image.source.sha256_digest]
+
+  depends_on = [
+    null_resource.remove-local-tag,
+  ]
 
   provisioner "local-exec" {
     command = <<END_OF_COMMAND

@@ -6,7 +6,13 @@ copying image `source_prefix/image_name:image-tag` to `dest_prefix/image_name:im
 
 It requires a [Terraform Docker Provider](https://www.terraform.io/docs/providers/docker/index.html) to be configured, as well as a Docker daemon running on the Terraform-local machine.  Note you may need to setup  authentication or run `docker login` to access private registries.
 
-### Motivation
+### Motivations
+
+#### Prepare images for Cloud Run
+
+Google Cloud Run requires images to pulled from the Google Container Registry (GCR) registries at `gcr.io`.  One can use this module to mirror from their alternate Docker infrastructure to GCR.
+
+#### Docker on GCP Private Network
 
 If one uses Docker on a private network on the Google Cloud (GCP/GKE), the nodes will not be able to pull from the Docker Hub Registry.  However, the nodes *can* pull from the Google Container Registry (GCR).  Thus, mirroring the registries will facilitate the nodes' access to images.  This module enables this to be managed with Terraform.
 
