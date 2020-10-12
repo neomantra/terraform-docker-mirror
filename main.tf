@@ -128,7 +128,7 @@ resource "null_resource" "remove-local-tag" {
   }
   provisioner "local-exec" {
     on_failure = continue
-    command = <<END_OF_COMMAND
+    command    = <<END_OF_COMMAND
 if [ -n "${var.no_rmi ? "" : "rmi"}" ] ; then docker rmi --no-prune ${data.docker_registry_image.source.name} ; fi
 END_OF_COMMAND
   }
