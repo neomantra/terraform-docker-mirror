@@ -70,7 +70,7 @@ output "dest_repo" {
   description = "Destination Repository without tag"
   value       = local.dest_repo
   depends_on = [
-    docker_image.image.latest
+    docker_image.image
   ]
 }
 
@@ -78,7 +78,7 @@ output "dest_full" {
   description = "Full Destination image path as dest/image_name:image_tag"
   value       = local.dest_full
   depends_on = [
-    docker_image.image.latest
+    docker_image.image
   ]
 }
 
@@ -86,7 +86,7 @@ output "dest_full_sha" {
   description = "Full Destination image path as dest/image_name@sha256"
   value       = "${local.dest_repo}@${data.docker_registry_image.source.sha256_digest}"
   depends_on = [
-    docker_image.image.latest
+    docker_image.image
   ]
 }
 
@@ -100,7 +100,7 @@ output "tag" {
   description = "Image tag"
   value       = var.image_tag
   depends_on = [
-    docker_image.image.latest
+    docker_image.image
   ]
 }
 
