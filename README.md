@@ -66,6 +66,6 @@ module "docker-mirror-resty" {
 
 Authored by [Evan Wies](https://github.com/neomantra).
 
-Copyright (c) 2019 Neomantra BV.
+Copyright (c) 2019-2020 Neomantra BV.
 
 Released under the MIT License, see LICENSE.
