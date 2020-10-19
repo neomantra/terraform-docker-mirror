@@ -3,6 +3,13 @@ Changelog
 
 These versions correspond to Git tags.
 
+## v0.4.0
+
+ * Upgrade to Terraform 0.13 (#2, #4)
+   * Add `required_providers`
+   * 0.13 no longer accepts attributes. Has to reference resources.
+ * Terraform `required_version` is now `>= 0.13`
+
 ## v0.3.1
 
  * Terraform `required_version` is `~> 0.12` as this module does not work with 0.13 yet (#2)

@@ -16,6 +16,7 @@ Google Cloud Run requires images to pulled from the Google Container Registry (G
 
 If one uses Docker on a private network on the Google Cloud (GCP/GKE), the nodes will not be able to pull from the Docker Hub Registry.  However, the nodes *can* pull from the Google Container Registry (GCR).  Thus, mirroring the registries will facilitate the nodes' access to images.  This module enables this to be managed with Terraform.
 
+
 ### How It Works
 
 This module works by first creating a `docker_image` resource, which pulls the "source" image to the Docker provider.  That pull will trigger a `local-exec` provisioner which performs a tag and `docker push` to the destination registry.
@@ -24,9 +25,9 @@ This module works by first creating a `docker_image` resource, which pulls the "
 
 Version `v0.1.0` of `terraform-docker-mirror` supports Terraform 0.11 and earlier.
 
-Version `v0.2.0` and later support Terraform 0.12.
+Version `v0.2.0`, `v0.3.0`, and `v0.3.1` support Terraform 0.12.
 
-Terraform 0.13 is currently unsupported.
+Version `v0.4.0` and later support Terraform 0.13.
 
 If unspecified, Terraform uses the latesst `master`.
 
@@ -34,7 +35,7 @@ You can specify the version with the `source` attribute, like so:
 
 ```
 module "docker-mirror-vault" {
-  source = "github.com/neomantra/terraform-docker-mirror?ref=v0.3.1"
+  source = "github.com/neomantra/terraform-docker-mirror?ref=v0.4.0"
   ...
 }
 ```
@@ -45,7 +46,7 @@ The following will mirror the [HashiCorp Vault image](https://hub.docker.com/_/v
 
 ```
 module "docker-mirror-vault" {
-  source        = "github.com/neomantra/terraform-docker-mirror?ref=v0.3.1"
+  source        = "github.com/neomantra/terraform-docker-mirror?ref=v0.4.0"
   image_name    = "vault"
   image_tag     = "1.0.3"
   dest_prefix   = "us.gcr.io/my-gcp-project"
@@ -55,7 +56,7 @@ module "docker-mirror-vault" {
 Example with `source_prefix`, copying `openresty/openresty:xenial` to `us.gcr.io/my-gcp-project/openresty:xenial`:
 ```
 module "docker-mirror-resty" {
-  source        = "github.com/neomantra/terraform-docker-mirror?ref=v0.3.1"
+  source        = "github.com/neomantra/terraform-docker-mirror?ref=v0.4.0"
   image_name    = "vault"
   image_tag     = "1.0.3"
   source_prefix = "openresty"
