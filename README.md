@@ -26,13 +26,15 @@ Version `v0.1.0` of `terraform-docker-mirror` supports Terraform 0.11 and earlie
 
 Version `v0.2.0` and later support Terraform 0.12.
 
+Terraform 0.13 is currently unsupported.
+
 If unspecified, Terraform uses the latesst `master`.
 
 You can specify the version with the `source` attribute, like so:
 
 ```
 module "docker-mirror-vault" {
-  source = "github.com/neomantra/terraform-docker-mirror?ref=v0.1.0"
+  source = "github.com/neomantra/terraform-docker-mirror?ref=v0.3.1"
   ...
 }
 ```
@@ -43,7 +45,7 @@ The following will mirror the [HashiCorp Vault image](https://hub.docker.com/_/v
 
 ```
 module "docker-mirror-vault" {
-  source        = "github.com/neomantra/terraform-docker-mirror"
+  source        = "github.com/neomantra/terraform-docker-mirror?ref=v0.3.1"
   image_name    = "vault"
   image_tag     = "1.0.3"
   dest_prefix   = "us.gcr.io/my-gcp-project"
@@ -53,7 +55,7 @@ module "docker-mirror-vault" {
 Example with `source_prefix`, copying `openresty/openresty:xenial` to `us.gcr.io/my-gcp-project/openresty:xenial`:
 ```
 module "docker-mirror-resty" {
-  source        = "github.com/neomantra/terraform-docker-mirror"
+  source        = "github.com/neomantra/terraform-docker-mirror?ref=v0.3.1"
   image_name    = "vault"
   image_tag     = "1.0.3"
   source_prefix = "openresty"
