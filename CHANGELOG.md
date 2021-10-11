@@ -3,6 +3,10 @@ Changelog
 
 These versions correspond to Git tags.
 
+## v0.5.0
+
+ * Update Docker provider to new upstream `kreuzwerker/docker` (#5)
+
 ## v0.4.0
 
  * Upgrade to Terraform 0.13 (#2, #4)
