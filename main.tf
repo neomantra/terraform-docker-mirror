@@ -64,6 +64,13 @@ variable "no_rmi" {
   default     = false
 }
 
+variable "dest_image" {
+  description = "The destination image name, if its name differs from the source"
+  type        = string
+  default     = null
+}
+
+
 
 ###############################################################################
 # Locals
@@ -74,7 +81,7 @@ locals {
   source_repo = "${local.source}${var.image_name}"
   source_full = "${local.source_repo}:${var.image_tag}"
   dest        = "${var.dest_prefix}${var.dest_prefix == "" ? "" : "/"}"
-  dest_repo   = "${local.dest}${var.image_name}"
+  dest_repo   = "${local.dest}${var.dest_image == null ? var.image_name : var.dest_image}"
   dest_full   = "${local.dest_repo}:${var.image_tag}"
 }
 
