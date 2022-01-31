@@ -3,6 +3,10 @@ Changelog
 
 These versions correspond to Git tags.
 
+## v0.6.0
+
+ * Add dest_image variable (#6)
+
 ## v0.5.0
 
  * Update Docker provider to new upstream `kreuzwerker/docker` (#5)
